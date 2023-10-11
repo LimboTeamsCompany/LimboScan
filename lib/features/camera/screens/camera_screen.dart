@@ -1,8 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:limboscan/features/urls/cubit/urls_cubit.dart';
+import 'package:limboscan/utils/camera/camera_utils.dart';
+import 'package:limboscan/utils/routes/route_enum.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -26,8 +31,18 @@ class _CameraScreenState extends State<CameraScreen> {
     });
   }
 
-  void onLoadCamera(QRViewController controller) {
-    this.controller = controller;
+  void onLoadCamera(QRViewController controller) async {
+    final cameraPermissionIsGranted = await Permission.camera.isGranted;
+
+    if (!cameraPermissionIsGranted) {
+      Navigator.pushNamed(context, RoutesList.dashboard);
+      openModalDeniedPermissions(context);
+      return;
+    }
+
+    setState(() {
+      this.controller = controller;
+    });
 
     controller.scannedDataStream.listen(onScanQR);
   }
@@ -63,10 +78,10 @@ class _CameraScreenState extends State<CameraScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (!mounted ||
-        (controller != null && controller?.hasPermissions == false)) {
+    if (!mounted) {
       return Scaffold(
-        body: SizedBox(
+        body: Container(
+          color: Colors.white,
           width: 100.w,
           height: 100.h,
           child: const Center(child: Text('No permisos')),

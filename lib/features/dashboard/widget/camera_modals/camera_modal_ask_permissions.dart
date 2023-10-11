@@ -1,11 +1,28 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:limboscan/utils/camera/camera_utils.dart';
 import 'package:limboscan/utils/routes/route_enum.dart';
 import 'package:limboscan/utils/theme/theme_utils.dart';
 import 'package:limboscan/widgets/elements/buttons/button.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class CameraModalAskPermissions extends StatelessWidget {
   const CameraModalAskPermissions({super.key});
+
+  void onAcceppt(BuildContext context) async {
+    final result = await Permission.camera.request();
+
+    if (result == PermissionStatus.granted) {
+      Navigator.pushReplacementNamed(context, RoutesList.camera);
+    } else if (result == PermissionStatus.permanentlyDenied) {
+      Navigator.pop(context);
+      openModalDeniedPermissions(context);
+    } else {
+      Navigator.pop(context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +60,7 @@ class CameraModalAskPermissions extends StatelessWidget {
           ),
           Button(
             text: 'Permitir acceso',
-            onTap: () =>
-                Navigator.pushReplacementNamed(context, RoutesList.camera),
+            onTap: () => onAcceppt(context),
           ),
           SizedBox(
             height: 2.h,

@@ -1,7 +1,7 @@
 name: limboscan
 description: A new Flutter project.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
-version: 1.0.1+2
+version: 1.0.2+5
 
 environment:
   sdk: ">=3.0.6 <4.0.0"
@@ -28,6 +28,7 @@ dependencies:
   flutter_statusbarcolor_ns: ^0.5.0
   flutter_launcher_icons: ^0.13.1
   video_player: ^2.7.1
+  app_settings: ^5.1.1
 
 dev_dependencies:
   flutter_test:
