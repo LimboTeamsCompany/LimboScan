@@ -55,6 +55,10 @@ bool isIos() {
   return Platform.isIOS;
 }
 
+bool isLandscape(BuildContext context) {
+  return MediaQuery.of(context).orientation == Orientation.landscape;
+}
+
 bool isTablet(BuildContext context) {
-  return (MediaQuery.of(context).size.height > 1024);
+  return (MediaQuery.of(context).size.height > 1024) || isLandscape(context);
 }
