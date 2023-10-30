@@ -29,15 +29,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
       body: Column(
         children: [
           const DashboardTopPart(),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 3.h),
-            child: const Column(
-              children: [
-                Text(
-                  'Escanéa, descubre y accede rápidamente a información con nuestra aplicación de escaneo de códigos QR, simplificando la forma en que interactúas con el mundo digital',
-                  textAlign: TextAlign.center,
-                )
-              ],
+          GestureDetector(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 3.h),
+              child: const Column(
+                children: [
+                  Text(
+                    'Escanéa, descubre y accede rápidamente a información con nuestra aplicación de escaneo de códigos QR, simplificando la forma en que interactúas con el mundo digital',
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
             ),
           ),
         ],

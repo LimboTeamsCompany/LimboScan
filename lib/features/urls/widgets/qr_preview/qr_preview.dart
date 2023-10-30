@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:limboscan/utils/system/system_utils.dart';
 import 'package:limboscan/widgets/url/url_container.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
@@ -9,13 +10,15 @@ class QrPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final qrSize = isTablet(context) ? 35.w : 68.w;
+
     return Stack(
       children: [
         Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16), color: Colors.white),
-          width: 80.w,
-          height: 78.w,
+          width: (isTablet(context) ? 10.w : 12.w) + qrSize,
+          height: (isTablet(context) ? 10.w : 10.w) + qrSize,
           margin: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h)
               .copyWith(bottom: 6.5.h),
           child: Stack(
@@ -23,8 +26,8 @@ class QrPreview extends StatelessWidget {
               Container(
                 margin: EdgeInsets.all(6.w),
                 padding: EdgeInsets.all(6.w),
-                width: 68.w,
-                height: 68.w,
+                width: qrSize,
+                height: qrSize,
                 child: PrettyQr(
                   data: url,
                 ),

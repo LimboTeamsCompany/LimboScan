@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 
@@ -17,6 +18,7 @@ class SystemUtils {
     Color? colorBottom,
     bool animate = true,
   }) async {
+    if (kIsWeb) return;
     await FlutterStatusbarcolor.setStatusBarColor(color, animate: animate);
     if (useWhiteForeground(color)) {
       await FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
@@ -46,5 +48,13 @@ class SystemUtils {
 }
 
 bool isIos() {
+  if (kIsWeb) {
+    return false;
+  }
+
   return Platform.isIOS;
+}
+
+bool isTablet(BuildContext context) {
+  return (MediaQuery.of(context).size.height > 1024);
 }

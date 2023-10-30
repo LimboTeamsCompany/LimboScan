@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:limboscan/utils/system/system_utils.dart';
 import 'package:limboscan/utils/theme/theme_utils.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:video_player/video_player.dart';
@@ -36,7 +37,17 @@ class _VideoScreenState extends State<VideoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    if (isTablet(context)) {
+      return Container(
+        margin: EdgeInsets.only(top: 15.h),
+        child: Image.asset(
+          'assets/logos/appstore.png',
+          height: 22.h,
+        ),
+      );
+    }
+
+    return SizedBox(
         child: _controller?.value.isInitialized == true
             ? AspectRatio(
                 aspectRatio: _controller!.value.aspectRatio,

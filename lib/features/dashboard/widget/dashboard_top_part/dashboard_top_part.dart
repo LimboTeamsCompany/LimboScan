@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:limboscan/utils/camera/camera_utils.dart';
 import 'package:limboscan/utils/routes/route_enum.dart';
+import 'package:limboscan/utils/system/system_utils.dart';
 import 'package:limboscan/utils/theme/theme_utils.dart';
 import 'package:limboscan/widgets/elements/buttons/button.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -29,6 +30,8 @@ class _DashboardTopPartState extends State<DashboardTopPart> {
 
   @override
   Widget build(BuildContext context) {
+    final double whiteSquareSize = isTablet(context) ? 40.w : 70.w;
+
     return GestureDetector(
       onTap: checkPermissions,
       child: Container(
@@ -52,8 +55,8 @@ class _DashboardTopPartState extends State<DashboardTopPart> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    width: 70.w,
-                    height: 70.w,
+                    width: whiteSquareSize,
+                    height: whiteSquareSize,
                     decoration: BoxDecoration(
                       border: Border.all(color: colorYellow, width: 2),
                       color: Colors.white,

@@ -19,7 +19,8 @@ class UrlProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final urlScanned = ModalRoute.of(context)!.settings.arguments as String;
+    final urlScanned =
+        (ModalRoute.of(context)!.settings.arguments ?? '') as String;
 
     return Scaffold(
       backgroundColor: const Color(0xfffcd681),
