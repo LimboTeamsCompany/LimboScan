@@ -47,13 +47,18 @@ class _CameraScreenState extends State<CameraScreen> {
     controller.scannedDataStream.listen(onScanQR);
   }
 
-  void onScanQR(Barcode scanData) {
+  void onScanQR(Barcode scanData) async {
     context
         .read<UrlsCubit>()
         .goToUrlProfile(url: scanData.code ?? '', context: context);
 
-    controller?.stopCamera();
-    controller?.dispose();
+    if (Platform.isIOS) {
+      await controller?.pauseCamera();
+    } else {
+      await controller?.stopCamera();
+      controller?.dispose();
+    }
+
     controller = null;
   }
 
